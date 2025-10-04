@@ -5,11 +5,11 @@ name = "pypi"
 
 [packages]
 requests = "*"
-pymongo = "*"
 pandas = "*"
 ipykernel = "*"
 mysql-connector-python = "*"
 pyyaml = "*"
+pymongo = {extras = ["srv"], version = "*"}
 
 [dev-packages]
 
