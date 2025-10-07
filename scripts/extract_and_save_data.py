@@ -5,13 +5,14 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 # %%
-with open('./config.yaml', 'r', encoding='utf-8') as cfg:
-    config = yaml.safe_load(cfg)
 
-mongodb_server = config['mongodb_server']
-mongodb_password = config['mongodb_password']
-uri = config['uri'].replace("{mongodb_server}",mongodb_server).replace("{mongodb_password}",mongodb_password)
-print(uri)
+def settings():
+    with open('../config.yaml', 'r', encoding='utf-8') as cfg:
+        config = yaml.safe_load(cfg)
+
+    mongodb_server = config['mongodb_server']
+    mongodb_password = config['mongodb_password']
+    return config['uri'].replace("{mongodb_server}",mongodb_server).replace("{mongodb_password}",mongodb_password)
 
 # %%
 def connect_mongo(uri):
@@ -39,6 +40,7 @@ def insert_data(col, data):
     return len(docs)
 
 if __name__ == "__main__":
+    uri = settings()
     client = connect_mongo(uri)
     db = create_connect_db(client, "db_produtos")
     collection = create_connect_collection(db, "produtos")
