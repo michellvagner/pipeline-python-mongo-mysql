@@ -43,7 +43,7 @@ def save_csv(df, path):
 # %%
 if __name__ == "__main__":
 
-    uri = settings()
+    uri = settings()['uri']
     client = connect_mongo(uri)
     db = create_connect_db(client, "db_produtos")
     collection = create_connect_collection(db, "produtos")

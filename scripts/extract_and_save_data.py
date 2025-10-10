@@ -12,7 +12,13 @@ def settings():
 
     mongodb_server = config['mongodb_server']
     mongodb_password = config['mongodb_password']
-    return config['uri'].replace("{mongodb_server}",mongodb_server).replace("{mongodb_password}",mongodb_password)
+    
+    return {
+        "mongodb_uri": config['mongodb_uri'].replace("{mongodb_server}",mongodb_server).replace("{mongodb_password}",mongodb_password),
+        "mysql_host": config['mysql_host'],
+        "mysql_user": config['mysql_user'],
+        "mysql_password": config['mysql_password']
+    }
 
 # %%
 def connect_mongo(uri):
@@ -40,7 +46,7 @@ def insert_data(col, data):
     return len(docs)
 
 if __name__ == "__main__":
-    uri = settings()
+    uri = settings()['mongodb_uri']
     client = connect_mongo(uri)
     db = create_connect_db(client, "db_produtos")
     collection = create_connect_collection(db, "produtos")
